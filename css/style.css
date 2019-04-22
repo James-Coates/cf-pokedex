@@ -1,0 +1,33 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+}
+
+h1 {
+  font-size: 3rem;
+  font-weight: 300;
+}
+
+.container {
+  margin:  auto;
+  max-width: 140rem;
+  padding: 5rem 2rem;
+  width: 80%;
+}
+
+.center-text {
+  text-align: center;
+}
+
