@@ -13,20 +13,26 @@ html {
 body {
   box-sizing: border-box;
   font-family: "Montserrat", sans-serif;
+  background: #9C2827;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #9C2827, #B72F2E);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #9C2827, #B72F2E); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  height: 100vh;
+  padding: 2rem;
 }
 
 h1 {
-  font-size: 5rem;
+  font-size: 6rem;
   font-weight: 300;
 }
 
 h2 {
-  font-size: 2rem;
+  font-size: 2.4rem;
   padding-bottom: 1rem;
 }
 
 p {
   font-size: 1.6rem;
+  line-height: 2.4rem;
 }
 
 .app-logo {
@@ -34,13 +40,68 @@ p {
 }
 
 .container {
-  margin:  auto;
+  margin:  0 auto;
   max-width: 140rem;
   padding: 5rem 2rem;
-  width: 80%;
+  width: 90%;
+  background-color: #efefef;
+  border-radius: 3px;
+  box-shadow: 0 3rem 5rem rgba(0,0,0,0.2);
+  height: 100%;
+  overflow: auto; 
+  opacity: 0.95;
 }
+
+.list-container {
+  padding: 2rem;
+}
+
+/* Utilities */
 
 .center-text {
   text-align: center;
 }
 
+/* Type Classes */
+.type {
+  border-radius: 3px;
+  padding: 2px 4px;
+  opacity: 0.8;
+}
+
+.type__fire {
+  background-color: #F08030;
+}
+
+.type__grass {
+  background-color: #22C02A;
+}
+
+.type__water {
+  background-color: #6890F0;
+}
+
+.type__poison {
+  background-color: #9F409F;
+}
+
+.type__normal {
+  background-color: #A6A6A6;
+}
+
+
+/* Media Queries */
+
+@media all and (max-width: 800px) {
+  
+  h1 {
+    font-size: 5rem;
+  }
+
+  .container {
+    padding: 1rem 0;
+    width: 100%;
+
+  }
+  
+}

@@ -4,27 +4,27 @@ repository = [
   {
     name: 'Bulbasaur',
     height: 0.7,
-    types: ['grass', 'poison']
+    types: ['Grass', 'Poison']
   },
   {
     name: 'Charmander',
     height: 0.6,
-    types: ['fire']
+    types: ['Fire']
   },
   {
     name: 'Squirtle',
     height: 0.5,
-    types: ['water']
+    types: ['Water']
   },
   {
     name: 'Snorlax',
     height: 2.1,
-    types: ['normal']
+    types: ['Normal']
   }
 ];
 
 // Some temporary formatting
-document.write('<div class="container center-text">')
+document.write('<div class="list-container">')
 document.write('<h2>List of Pokèmon</h2>')
 
 // Loop through Pokemon repository and print data
@@ -47,8 +47,11 @@ for (var i = 0; i < repository.length; i++){
   document.write('<p>Type: ');
   for (var j = 0; j < types.length; j++){
     var type = types[j];
-    var numberOfTypes = types.length - 1
-    var output = j < numberOfTypes ? type + ', ' : type;
+    var numberOfTypes = types.length - 1;
+    var typeClass = 'type type__' + type.toLowerCase();
+    var typeOutput = '<span class="' + typeClass + '">' + type + '</span>';
+
+    var output = j < numberOfTypes ? typeOutput + ', ' : typeOutput;
     document.write(output);
   }
   document.write('</p>');
