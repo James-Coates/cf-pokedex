@@ -16,7 +16,7 @@ body {
 }
 
 h1 {
-  font-size: 4rem;
+  font-size: 5rem;
   font-weight: 300;
 }
 
@@ -27,6 +27,10 @@ h2 {
 
 p {
   font-size: 1.6rem;
+}
+
+.app-logo {
+  height: 100px;
 }
 
 .container {
