@@ -1,4 +1,4 @@
-var app = (function(){
+var testing = (function(){
 
   var pokemonRepository = (function(){
 
@@ -25,8 +25,12 @@ var app = (function(){
       }
     ];
 
-    function add(pokemon){
-      pokemon.push(pokemon);
+    function add(addedPokemon){
+      if (typeof addedPokemon === 'object'){
+        pokemon.push(pokemon);
+      } else {
+        console.log('Must be an object');
+      }
     }
 
     function getAll(){
@@ -43,22 +47,17 @@ var app = (function(){
   openContainer();
 
   pokemonRepository.getAll().forEach(function(pokemon){
-
-    // document.write(getPokemonDescription(pokemon));
-
     writePokemonDescription(pokemon);
-    // writePokemonTypes(pokemon);
-
   });
 
   closeContainer();
 
-
+  // ***********************
   // Define Global Functions
 
   function openContainer(){
-    document.write('<div class="list-container">')
-    document.write('<h2>List of Pokèmon</h2>')
+    document.write('<div class="list-container">');
+    document.write('<h2>List of Pokèmon</h2>');
   }
 
   function closeContainer(){
@@ -66,7 +65,7 @@ var app = (function(){
   }
 
   function returnParagraph(paragraph){
-    return '<p>' + paragraph + '</p>'
+    return '<p>' + paragraph + '</p>';
   }
 
   function getHeightComment(height){
