@@ -1,0 +1,25 @@
+{
+  "name": "cf-pokedex",
+  "version": "1.0.0",
+  "description": "First Javascript App",
+  "main": "app.js",
+  "scripts": {
+    "compile:sass": "node-sass sass/main.scss css/style.css -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/James-Coates/cf-pokedex.git"
+  },
+  "keywords": [
+    "pokedex"
+  ],
+  "author": "James Coates",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/James-Coates/cf-pokedex/issues"
+  },
+  "homepage": "https://github.com/James-Coates/cf-pokedex#readme",
+  "devDependencies": {
+    "node-sass": "^4.12.0"
+  }
+}

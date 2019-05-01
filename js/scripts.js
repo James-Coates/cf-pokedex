@@ -105,8 +105,8 @@ var testing = (function(){
   }
 
   function addItemText(pokemonName) {
-    var pokemonText = document.createElement('h3');
-    pokemonText.classList.add('content-list__header2');
+    var pokemonText = document.createElement('p');
+    pokemonText.classList.add('content-list__desc');
     pokemonText.textContent = pokemonName;
     return pokemonText;
   }
