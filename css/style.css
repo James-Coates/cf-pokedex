@@ -43,8 +43,6 @@ p {
   color: var(--color-primary); }
 
 .search-bar {
-  /* height: 4rem; */
-  /* background-color: yellowgreen; */
   margin-bottom: 2rem;
   width: 100%;
   padding-right: 2rem;
@@ -80,7 +78,6 @@ p {
     z-index: 2; }
 
 .content-list {
-  /* height: 100%; */
   flex: 0 30rem;
   display: flex;
   flex-direction: column; }
