@@ -68,7 +68,7 @@ footer {
 
 .content-list {
   /* height: 100%; */
-  flex: 0 35rem;
+  flex: 0 32rem;
   overflow: visible;
   display: flex;
   flex-direction: column;
@@ -84,7 +84,7 @@ footer {
 }
 
 .search-bar__input {
-  width: 75%;
+  width: 80%;
   padding: 1rem 1.4rem;
   font-size: 1.5rem;
   border-radius: 20rem;
@@ -209,6 +209,8 @@ footer {
   margin-bottom: 1rem;
   outline: none;
   transition: 0.3s;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.2);
+  margin-left: 3px;
 }
 
 .content-list__button:hover {

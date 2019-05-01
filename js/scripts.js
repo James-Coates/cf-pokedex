@@ -22,6 +22,36 @@ var testing = (function(){
         name: 'Snorlax',
         height: 2.1,
         types: ['Normal']
+      },
+      {
+        name: 'Snorlax',
+        height: 2.1,
+        types: ['Normal']
+      },
+      {
+        name: 'Snorlax',
+        height: 2.1,
+        types: ['Normal']
+      },
+      {
+        name: 'Snorlax',
+        height: 2.1,
+        types: ['Normal']
+      },
+      {
+        name: 'Snorlax',
+        height: 2.1,
+        types: ['Normal']
+      },
+      {
+        name: 'Snorlax',
+        height: 2.1,
+        types: ['Normal']
+      },
+      {
+        name: 'Snorlax',
+        height: 2.1,
+        types: ['Normal']
       }
     ];
 
@@ -44,13 +74,48 @@ var testing = (function(){
 
   })();
 
-  openContainer();
-
   pokemonRepository.getAll().forEach(function(pokemon){
-    writePokemonDescription(pokemon);
+    addListItem(pokemon);
   });
 
-  closeContainer();
+
+
+  // New Global Functions
+
+  function addListItem(pokemon) {
+    var $pokemonList = document.getElementById("pokemon-list");
+    var pokemonbutton = addItemButton(pokemon);
+    var pokemonListItem = document.createElement('li');
+    pokemonListItem.appendChild(pokemonbutton);
+
+    $pokemonList.appendChild(pokemonListItem);
+  }
+
+  function addItemButton(pokemon) {
+    var pokemonButton = document.createElement('button');
+    var pokemonImage = addItemImage(pokemon);
+    var pokemonText = addItemText(pokemon.name);
+    pokemonButton.classList.add('content-list__button');
+    pokemonButton.appendChild(pokemonImage);
+    pokemonButton.appendChild(pokemonText);
+    pokemonButton.addEventListener('click', function() {
+      console.log(pokemon.name);
+    })
+    return pokemonButton;
+  }
+
+  function addItemText(pokemonName) {
+    var pokemonText = document.createElement('h3');
+    pokemonText.classList.add('content-list__header2');
+    pokemonText.textContent = pokemonName;
+    return pokemonText;
+  }
+
+  function addItemImage(pokemonImage) {
+    var pokemonImage = document.createElement('div');
+    pokemonImage.classList.add('content-list__image');
+    return pokemonImage;
+  }
 
   // ***********************
   // Define Global Functions
