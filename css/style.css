@@ -95,7 +95,8 @@ p {
     outline: none;
     transition: 0.3s;
     margin-left: 1rem;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2); }
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+    font-family: "Abel", sans-serif; }
     .content-list__button:hover {
       opacity: .9; }
   .content-list__image {
@@ -160,7 +161,7 @@ p {
 
 body {
   box-sizing: border-box;
-  font-family: 'Abel', sans-serif;
+  font-family: "Abel", sans-serif;
   background: var(--color-white-1);
   /* fallback for old browsers */
   background: -webkit-linear-gradient(to right, var(--color-white-1), var(--color-white-2));

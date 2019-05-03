@@ -7,6 +7,9 @@ $colors: (
   white-2: #c3cfe2
 );
 
+// Font
+$font-primary: 'Abel', sans-serif;
+
 :root {
   // Map SASS Colours to CSS4 vars
   @each $name, $color in $colors {

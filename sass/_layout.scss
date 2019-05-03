@@ -1,6 +1,6 @@
 body {
   box-sizing: border-box;
-  font-family: 'Abel', sans-serif;
+  font-family: $font-primary;
   background: color(white-1);  /* fallback for old browsers */
   background: -webkit-linear-gradient(to right, color(white-1), color(white-2));  /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to bottom right, color(white-1), color(white-2)); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
