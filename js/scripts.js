@@ -47,6 +47,18 @@ const app = (function() {
     $pokemonList.appendChild(pokemonListItem);
   }
 
+  function showLoadingMessage() {
+    const loadingMessage = document.createElement('div');
+    const $pokemonList = document.querySelector('.content-list');
+    loadingMessage.classList.add('lds-dual-ring');
+    $pokemonList.appendChild(loadingMessage);
+  }
+
+  function hideLoadingMessage() {
+    const loadingMessage = document.querySelector('.lds-dual-ring');
+    loadingMessage.parentNode.removeChild(loadingMessage);
+  }
+
   const pokemonRepository = (function() {
     const repository = [];
     const apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
@@ -111,9 +123,13 @@ const app = (function() {
     };
   })();
 
-  pokemonRepository.loadList().then(function() {
-    pokemonRepository.getAll().forEach(function(pokemon) {
-      addListItem(pokemon);
+  pokemonRepository
+    .loadList()
+    .then(showLoadingMessage())
+    .then(function() {
+      hideLoadingMessage();
+      pokemonRepository.getAll().forEach(function(pokemon) {
+        addListItem(pokemon);
+      });
     });
-  });
 })();

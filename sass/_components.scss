@@ -3,7 +3,7 @@
   width: 100%;
   padding-right: 2rem;
   position: relative;
-  height:2.5rem;
+  height: 2.5rem;
 
   &__input {
     width: 100%;
@@ -12,13 +12,13 @@
     border-radius: 20rem;
     outline: none;
     border: none;
-    box-shadow: 0 1px 5px rgba(0,0,0,0.2);
-    font-family: 'Abel', sans-serif;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+    font-family: "Abel", sans-serif;
     position: absolute;
     left: 0;
-    
+
     &::placeholder {
-      color: #A6A6A6;
+      color: #a6a6a6;
     }
   }
 
@@ -38,14 +38,14 @@
     border: none;
     z-index: 2;
   }
-
 }
 
 .content-list {
   flex: 0 30rem;
   display: flex;
   flex-direction: column;
-  
+  position: relative;
+
   &__button {
     height: 4rem;
     display: flex;
@@ -59,24 +59,24 @@
     margin-bottom: 1.6rem;
     outline: none;
     transition: 0.3s;
-    margin-left:1rem;
-    box-shadow: 0 3px 5px rgba(0,0,0,0.2);
+    margin-left: 1rem;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
     font-family: $font-primary;
-    
+
     &:hover {
-      opacity: .9;
+      opacity: 0.9;
     }
   }
-  
+
   &__image {
     height: 5rem;
     background-color: #fdfeff;
     border-radius: 100%;
     flex: 0 0 5rem;
-    transform: translate(-.5rem, -.5rem);
-    box-shadow: 0 1px 5px rgba(0,0,0,0.2); 
+    transform: translate(-0.5rem, -0.5rem);
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
   }
-  
+
   &__desc {
     font-size: 1.6rem;
     font-weight: 300;
@@ -95,7 +95,6 @@
       width: 95%;
     }
   }
-
 }
 
 .show-box {
@@ -127,7 +126,6 @@
       display: none;
     }
   }
-
 }
 
 /* Type Classes */
@@ -138,18 +136,48 @@
   display: inline;
 
   &--fire {
-    background-color: #F08030;
+    background-color: #f08030;
   }
   &--grass {
-    background-color: #22C02A;
+    background-color: #22c02a;
   }
   &--water {
-    background-color: #6890F0;
+    background-color: #6890f0;
   }
   &--poison {
-    background-color: #9F409F;
+    background-color: #9f409f;
   }
   &--normal {
-    background-color: #A6A6A6;
+    background-color: #a6a6a6;
+  }
+}
+
+.lds-dual-ring {
+  display: inline-block;
+  width: 64px;
+  height: 64px;
+  position: absolute;
+  top: 10rem;
+  left: 40%;
+  transform: translate(-50% -50%);
+  &:after {
+    content: " ";
+    display: block;
+    width: 46px;
+    height: 46px;
+    margin: 1px;
+    border-radius: 50%;
+    border: 5px solid color(primary);
+    border-color: color(primary) transparent color(primary) transparent;
+    animation: lds-dual-ring 1.2s linear infinite;
+  }
+}
+
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
