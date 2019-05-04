@@ -1,7 +1,12 @@
+/* eslint-disable no-use-before-define */
+/* eslint-disable object-shorthand */
+/* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
 
 const app = (function() {
   // Global Functions
+  // ********************
+
   function addItemImage(pokemonImage) {
     const pokemonImageHtml = document.createElement('div');
     pokemonImageHtml.classList.add('content-list__image');
@@ -16,8 +21,9 @@ const app = (function() {
   }
 
   function showDetails(pokemon) {
-    // eslint-disable-next-line no-console
-    console.log(pokemon);
+    pokemonRepository.loadDetails(pokemon).then(function() {
+      console.log(pokemon);
+    });
   }
 
   function addItemButton(pokemon) {
@@ -38,7 +44,6 @@ const app = (function() {
     const pokemonbutton = addItemButton(pokemon);
     const pokemonListItem = document.createElement('li');
     pokemonListItem.appendChild(pokemonbutton);
-
     $pokemonList.appendChild(pokemonListItem);
   }
 
@@ -53,7 +58,6 @@ const app = (function() {
       if (typeof addedPokemon === 'object') {
         repository.push(addedPokemon);
       } else {
-        // eslint-disable-next-line no-console
         console.log('Must be an object');
       }
     }
@@ -78,16 +82,32 @@ const app = (function() {
           });
         })
         .catch(function(e) {
-          // eslint-disable-next-line no-console
+          console.error(e);
+        });
+    }
+
+    function loadDetails(item) {
+      const url = item.detailsUrl;
+      return fetch(url)
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(details) {
+          item.imageURL = details.sprites.front_default;
+          item.height = details.height;
+          item.types = Object.keys(details.types);
+        })
+        .catch(function(e) {
           console.error(e);
         });
     }
 
     return {
-      add,
-      getAll,
+      add: add,
+      getAll: getAll,
       // search: search, // #TODO
-      loadList,
+      loadList: loadList,
+      loadDetails: loadDetails,
     };
   })();
 
