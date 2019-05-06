@@ -171,6 +171,8 @@ p {
     display: flex;
     justify-content: center;
     align-items: center; }
+    .show-box__image img {
+      height: 150px; }
   .show-box__text {
     text-align: center;
     padding: 0 2rem; }
