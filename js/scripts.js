@@ -1,63 +1,13 @@
+/* eslint-disable no-var */
 /* eslint-disable no-use-before-define */
 /* eslint-disable object-shorthand */
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
 
 const app = (function() {
-  // Global Functions
-  // ********************
+  // Global Variables
 
-  function addItemImage(pokemonImage) {
-    const pokemonImageHtml = document.createElement('div');
-    pokemonImageHtml.classList.add('content-list__image');
-    return pokemonImageHtml;
-  }
-
-  function addItemText(pokemonName) {
-    const pokemonText = document.createElement('p');
-    pokemonText.classList.add('content-list__desc');
-    pokemonText.textContent = pokemonName;
-    return pokemonText;
-  }
-
-  function showDetails(pokemon) {
-    pokemonRepository.loadDetails(pokemon).then(function() {
-      console.log(pokemon);
-    });
-  }
-
-  function addItemButton(pokemon) {
-    const pokemonButton = document.createElement('button');
-    const pokemonImage = addItemImage(pokemon);
-    const pokemonText = addItemText(pokemon.name);
-    pokemonButton.classList.add('content-list__button');
-    pokemonButton.appendChild(pokemonImage);
-    pokemonButton.appendChild(pokemonText);
-    pokemonButton.addEventListener('click', function() {
-      showDetails(pokemon);
-    });
-    return pokemonButton;
-  }
-
-  function addListItem(pokemon) {
-    const $pokemonList = document.getElementById('pokemon-list');
-    const pokemonbutton = addItemButton(pokemon);
-    const pokemonListItem = document.createElement('li');
-    pokemonListItem.appendChild(pokemonbutton);
-    $pokemonList.appendChild(pokemonListItem);
-  }
-
-  function showLoadingMessage() {
-    const loadingMessage = document.createElement('div');
-    const $pokemonList = document.querySelector('.content-list');
-    loadingMessage.classList.add('lds-dual-ring');
-    $pokemonList.appendChild(loadingMessage);
-  }
-
-  function hideLoadingMessage() {
-    const loadingMessage = document.querySelector('.lds-dual-ring');
-    loadingMessage.parentNode.removeChild(loadingMessage);
-  }
+  // **********
 
   const pokemonRepository = (function() {
     const repository = [];
@@ -122,6 +72,120 @@ const app = (function() {
       loadDetails: loadDetails,
     };
   })();
+
+  // #region    *** Item List Functions ***
+
+  function addItemImage() {
+    const itemImageElement = document.createElement('div');
+    itemImageElement.classList.add('content-list__image');
+    return itemImageElement;
+  }
+
+  function addItemText(pokemonName) {
+    const pokemonText = document.createElement('p');
+    pokemonText.classList.add('content-list__desc');
+    pokemonText.textContent = pokemonName;
+    return pokemonText;
+  }
+
+  function showDetails(pokemon) {
+    pokemonRepository
+      .loadDetails(pokemon)
+      .then(clearContentBox)
+      .then(function() {
+        document.querySelector('.show-box-container').classList.add('is-visible');
+
+        addContent(pokemon);
+      });
+  }
+
+  function addItemButton(pokemon) {
+    const itemButton = document.createElement('button');
+    const itemImage = addItemImage(pokemon);
+    const itemText = addItemText(pokemon.name);
+    itemButton.classList.add('content-list__button');
+    itemButton.appendChild(itemImage);
+    itemButton.appendChild(itemText);
+    itemButton.addEventListener('click', function() {
+      showDetails(pokemon);
+    });
+    return itemButton;
+  }
+
+  function addListItem(pokemon) {
+    const $pokemonList = document.getElementById('pokemon-list');
+    const itemButton = addItemButton(pokemon);
+    const pokemonListItem = document.createElement('li');
+    pokemonListItem.appendChild(itemButton);
+    $pokemonList.appendChild(pokemonListItem);
+  }
+
+  function showLoadingMessage() {
+    const loadingMessage = document.createElement('div');
+    const $pokemonList = document.querySelector('.content-list');
+    loadingMessage.classList.add('lds-dual-ring');
+    $pokemonList.appendChild(loadingMessage);
+  }
+
+  function hideLoadingMessage() {
+    const loadingMessage = document.querySelector('.lds-dual-ring');
+    loadingMessage.parentNode.removeChild(loadingMessage);
+  }
+
+  // #endregion *** Item List Functions ***
+
+  // #region    *** Show Box Functions ***
+
+  function addCloseButton() {
+    var closeButton = document.createElement('div');
+    var closeButtonContent = document.createElement('i');
+    closeButton.classList.add('show-box__close');
+    closeButtonContent.classList.add('fas');
+    closeButtonContent.classList.add('fa-times');
+    closeButton.appendChild(closeButtonContent);
+    closeButton.addEventListener('click', function() {
+      clearContentBox();
+    });
+    return closeButton;
+  }
+
+  function addContentImage(imageURL) {
+    var contentImageContainer = document.createElement('div');
+    var contentImgElement = document.createElement('img');
+    contentImgElement.setAttribute('src', imageURL);
+    contentImageContainer.classList.add('show-box__image');
+    contentImageContainer.appendChild(contentImgElement);
+    return contentImageContainer;
+  }
+
+  function clearContentBox() {
+    var showBox = document.querySelector('.show-box');
+    showBox.innerText = '';
+    showBox.parentElement.classList.remove('is-visible');
+  }
+
+  function addContentBody(pokemon) {
+    var itemName = pokemon.name;
+    var contentBodyElement = document.createElement('div');
+    var contentHeadingElement = document.createElement('h3');
+    contentHeadingElement.innerText = itemName;
+    contentBodyElement.classList.add('show-box__text');
+    contentBodyElement.appendChild(contentHeadingElement);
+    return contentBodyElement;
+  }
+
+  function addContent(pokemon) {
+    var $showBox = document.querySelector('.show-box');
+    var contentImage = addContentImage(pokemon.imageURL);
+    var contentBody = addContentBody(pokemon);
+    var closeButton = addCloseButton();
+
+    $showBox.appendChild(closeButton);
+    $showBox.appendChild(contentImage);
+    $showBox.appendChild(contentBody);
+  }
+
+  // #endregion *** Show Box Functions ***
 
   pokemonRepository
     .loadList()

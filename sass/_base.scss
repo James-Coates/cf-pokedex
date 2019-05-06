@@ -1,14 +1,14 @@
 // SASS Colour Variables
 $colors: (
-  primary: #01152D,
+  primary: #01152d,
   primary-light: #102c4e,
-  black: #0F0F0F,
+  black: #0f0f0f,
   white-1: #f5f7fa,
   white-2: #c3cfe2
 );
 
 // Font
-$font-primary: 'Abel', sans-serif;
+$font-primary: "Abel", sans-serif;
 
 :root {
   // Map SASS Colours to CSS4 vars
@@ -68,5 +68,3 @@ p {
 .highlight {
   color: color(primary);
 }
-
-
