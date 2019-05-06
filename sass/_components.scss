@@ -191,12 +191,46 @@
   padding: 2px 4px;
   opacity: 0.8;
   display: inline;
+  margin-right: 0.5rem;
 
   &--fire {
     background-color: #f08030;
   }
   &--grass {
     background-color: #22c02a;
+  }
+  &--electric {
+    background-color: #f3ef08;
+  }
+  &--ground {
+    background-color: #6e6d36;
+  }
+  &--fairy {
+    background-color: #e441ce;
+  }
+  &--flying {
+    background-color: #aad7fc;
+  }
+  &--bug {
+    background-color: #095e10;
+  }
+  &--psychic {
+    background-color: #3c095e;
+  }
+  &--rock {
+    background-color: #633d0c;
+  }
+  &--steel {
+    background-color: #909596;
+  }
+  &--ice {
+    background-color: #0dd7ff;
+  }
+  &--ghost {
+    background-color: #ddacf3;
+  }
+  &--fighting {
+    background-color: #5e1609;
   }
   &--water {
     background-color: #6890f0;

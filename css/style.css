@@ -196,11 +196,34 @@ p {
   border-radius: 3px;
   padding: 2px 4px;
   opacity: 0.8;
-  display: inline; }
+  display: inline;
+  margin-right: 0.5rem; }
   .content-list__type--fire {
     background-color: #f08030; }
   .content-list__type--grass {
     background-color: #22c02a; }
+  .content-list__type--electric {
+    background-color: #f3ef08; }
+  .content-list__type--ground {
+    background-color: #6e6d36; }
+  .content-list__type--fairy {
+    background-color: #e441ce; }
+  .content-list__type--flying {
+    background-color: #aad7fc; }
+  .content-list__type--bug {
+    background-color: #095e10; }
+  .content-list__type--psychic {
+    background-color: #3c095e; }
+  .content-list__type--rock {
+    background-color: #633d0c; }
+  .content-list__type--steel {
+    background-color: #909596; }
+  .content-list__type--ice {
+    background-color: #0dd7ff; }
+  .content-list__type--ghost {
+    background-color: #ddacf3; }
+  .content-list__type--fighting {
+    background-color: #5e1609; }
   .content-list__type--water {
     background-color: #6890f0; }
   .content-list__type--poison {

@@ -57,7 +57,10 @@ const app = (function() {
         .then(function(details) {
           item.imageURL = details.sprites.front_default;
           item.height = details.height;
-          item.types = Object.keys(details.types);
+          item.types = [];
+          details.types.forEach(function(type) {
+            item.types.push(type.type.name);
+          });
         })
         .catch(function(e) {
           console.error(e);
@@ -94,7 +97,6 @@ const app = (function() {
       .then(clearContentBox)
       .then(function() {
         document.querySelector('.show-box-container').classList.add('is-visible');
-
         addContent(pokemon);
       });
   }
@@ -164,13 +166,31 @@ const app = (function() {
     showBox.parentElement.classList.remove('is-visible');
   }
 
+  function createPokemonType(pokemonType) {
+    var pokemonTypeElement = document.createElement('p');
+    pokemonTypeElement.innerText = pokemonType;
+    pokemonTypeElement.classList.add('content-list__type');
+    pokemonTypeElement.classList.add(`content-list__type--${pokemonType}`);
+    return pokemonTypeElement;
+  }
+
   function addContentBody(pokemon) {
-    var itemName = pokemon.name;
     var contentBodyElement = document.createElement('div');
     var contentHeadingElement = document.createElement('h3');
-    contentHeadingElement.innerText = itemName;
+    var contentDesc = document.createElement('p');
+
+    contentHeadingElement.innerText = pokemon.name;
     contentBodyElement.classList.add('show-box__text');
     contentBodyElement.appendChild(contentHeadingElement);
+
+    pokemon.types.forEach(function(pokemonType) {
+      var pokemonTypeElement = createPokemonType(pokemonType);
+      contentBodyElement.appendChild(pokemonTypeElement);
+    });
+
+    contentDesc.innerText = `Height: ${pokemon.height}m`;
+    contentBodyElement.appendChild(contentDesc);
+
     return contentBodyElement;
   }
 
