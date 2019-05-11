@@ -1,10 +1,4 @@
-/* eslint-disable no-var */
-/* eslint-disable no-use-before-define */
-/* eslint-disable object-shorthand */
-/* eslint-disable no-console */
-/* eslint-disable no-unused-vars */
-
-const app = (function() {
+(function() {
   // Global Variables
 
   // **********
@@ -20,6 +14,7 @@ const app = (function() {
       if (typeof addedPokemon === 'object') {
         repository.push(addedPokemon);
       } else {
+        // eslint-disable-next-line no-console
         console.log('Must be an object');
       }
     }
@@ -44,6 +39,7 @@ const app = (function() {
           });
         })
         .catch(function(e) {
+          // eslint-disable-next-line no-console
           console.error(e);
         });
     }
@@ -63,18 +59,90 @@ const app = (function() {
           });
         })
         .catch(function(e) {
+          // eslint-disable-next-line no-console
           console.error(e);
         });
     }
 
     return {
-      add: add,
-      getAll: getAll,
+      add,
+      getAll,
       // search: search, // #TODO
-      loadList: loadList,
-      loadDetails: loadDetails,
+      loadList,
+      loadDetails,
     };
   })();
+
+  // #region    *** Show Box Functions ***
+
+  function clearContentBox() {
+    const showBox = document.querySelector('.show-box');
+    showBox.innerText = '';
+    showBox.parentElement.classList.remove('is-visible');
+  }
+
+  function addCloseButton() {
+    const closeButton = document.createElement('div');
+    const closeButtonContent = document.createElement('i');
+    closeButton.classList.add('show-box__close');
+    closeButtonContent.classList.add('fas');
+    closeButtonContent.classList.add('fa-times');
+    closeButton.appendChild(closeButtonContent);
+    closeButton.addEventListener('click', function() {
+      clearContentBox();
+    });
+    return closeButton;
+  }
+
+  function addContentImage(imageURL) {
+    const contentImageContainer = document.createElement('div');
+    const contentImgElement = document.createElement('img');
+    contentImgElement.setAttribute('src', imageURL);
+    contentImageContainer.classList.add('show-box__image');
+    contentImageContainer.appendChild(contentImgElement);
+    return contentImageContainer;
+  }
+
+  function createPokemonType(pokemonType) {
+    const pokemonTypeElement = document.createElement('p');
+    pokemonTypeElement.innerText = pokemonType;
+    pokemonTypeElement.classList.add('content-list__type');
+    pokemonTypeElement.classList.add(`content-list__type--${pokemonType}`);
+    return pokemonTypeElement;
+  }
+
+  function addContentBody(pokemon) {
+    const contentBodyElement = document.createElement('div');
+    const contentHeadingElement = document.createElement('h3');
+    const contentDesc = document.createElement('p');
+
+    contentHeadingElement.innerText = pokemon.name;
+    contentBodyElement.classList.add('show-box__text');
+    contentBodyElement.appendChild(contentHeadingElement);
+
+    pokemon.types.forEach(function(pokemonType) {
+      const pokemonTypeElement = createPokemonType(pokemonType);
+      contentBodyElement.appendChild(pokemonTypeElement);
+    });
+
+    contentDesc.innerText = `Height: ${pokemon.height}m`;
+    contentBodyElement.appendChild(contentDesc);
+
+    return contentBodyElement;
+  }
+
+  function addContent(pokemon) {
+    const $showBox = document.querySelector('.show-box');
+    const contentImage = addContentImage(pokemon.imageURL);
+    const contentBody = addContentBody(pokemon);
+    const closeButton = addCloseButton();
+
+    $showBox.appendChild(closeButton);
+    $showBox.appendChild(contentImage);
+    $showBox.appendChild(contentBody);
+  }
+
+  // #endregion *** Show Box Functions ***
 
   // #region    *** Item List Functions ***
 
@@ -136,76 +204,6 @@ const app = (function() {
 
   // #endregion *** Item List Functions ***
 
-  // #region    *** Show Box Functions ***
-
-  function addCloseButton() {
-    var closeButton = document.createElement('div');
-    var closeButtonContent = document.createElement('i');
-    closeButton.classList.add('show-box__close');
-    closeButtonContent.classList.add('fas');
-    closeButtonContent.classList.add('fa-times');
-    closeButton.appendChild(closeButtonContent);
-    closeButton.addEventListener('click', function() {
-      clearContentBox();
-    });
-    return closeButton;
-  }
-
-  function addContentImage(imageURL) {
-    var contentImageContainer = document.createElement('div');
-    var contentImgElement = document.createElement('img');
-    contentImgElement.setAttribute('src', imageURL);
-    contentImageContainer.classList.add('show-box__image');
-    contentImageContainer.appendChild(contentImgElement);
-    return contentImageContainer;
-  }
-
-  function clearContentBox() {
-    var showBox = document.querySelector('.show-box');
-    showBox.innerText = '';
-    showBox.parentElement.classList.remove('is-visible');
-  }
-
-  function createPokemonType(pokemonType) {
-    var pokemonTypeElement = document.createElement('p');
-    pokemonTypeElement.innerText = pokemonType;
-    pokemonTypeElement.classList.add('content-list__type');
-    pokemonTypeElement.classList.add(`content-list__type--${pokemonType}`);
-    return pokemonTypeElement;
-  }
-
-  function addContentBody(pokemon) {
-    var contentBodyElement = document.createElement('div');
-    var contentHeadingElement = document.createElement('h3');
-    var contentDesc = document.createElement('p');
-
-    contentHeadingElement.innerText = pokemon.name;
-    contentBodyElement.classList.add('show-box__text');
-    contentBodyElement.appendChild(contentHeadingElement);
-
-    pokemon.types.forEach(function(pokemonType) {
-      var pokemonTypeElement = createPokemonType(pokemonType);
-      contentBodyElement.appendChild(pokemonTypeElement);
-    });
-
-    contentDesc.innerText = `Height: ${pokemon.height}m`;
-    contentBodyElement.appendChild(contentDesc);
-
-    return contentBodyElement;
-  }
-
-  function addContent(pokemon) {
-    var $showBox = document.querySelector('.show-box');
-    var contentImage = addContentImage(pokemon.imageURL);
-    var contentBody = addContentBody(pokemon);
-    var closeButton = addCloseButton();
-
-    $showBox.appendChild(closeButton);
-    $showBox.appendChild(contentImage);
-    $showBox.appendChild(contentBody);
-  }
-
-  // #endregion *** Show Box Functions ***
   pokemonRepository
     .loadList()
     .then(showLoadingMessage())
