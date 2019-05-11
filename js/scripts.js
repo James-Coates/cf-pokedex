@@ -206,7 +206,6 @@ const app = (function() {
   }
 
   // #endregion *** Show Box Functions ***
-
   pokemonRepository
     .loadList()
     .then(showLoadingMessage())
