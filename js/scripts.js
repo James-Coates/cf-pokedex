@@ -1,8 +1,5 @@
 (function() {
-  // Global Variables
-
-  // **********
-
+  const searchInput = document.querySelector('.search-bar__input');
   const pokemonRepository = (function() {
     const repository = [];
     const apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
@@ -202,6 +199,25 @@
     loadingMessage.parentNode.removeChild(loadingMessage);
   }
 
+  function searchItems() {
+    const filter = searchInput.value.toUpperCase();
+    const ul = document.querySelector('.scroll-box');
+    const li = ul.getElementsByTagName('li');
+    let listItemText;
+    let txtValue;
+
+    // Loop through li and hide those that do not match criteria
+    for (let i = 0; i < li.length; i += 1) {
+      listItemText = li[i].getElementsByTagName('p')[0];
+      txtValue = listItemText.textContent.toUpperCase();
+      if (txtValue.indexOf(filter) > -1) {
+        li[i].style.display = '';
+      } else {
+        li[i].style.display = 'none';
+      }
+    }
+  }
+
   // #endregion *** Item List Functions ***
 
   pokemonRepository
@@ -213,4 +229,7 @@
         addListItem(pokemon);
       });
     });
+
+  // Add event listener on search bar
+  searchInput.addEventListener('keyup', searchItems);
 })();
