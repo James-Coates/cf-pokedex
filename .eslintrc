@@ -10,6 +10,16 @@
         "printWidth": 120,
         "tabWidth": 2
       }
+    ],
+    "prefer-destructuring": [
+      "error",
+      {
+        "array": false,
+        "object": true
+      },
+      {
+        "enforceForRenamedProperties": false
+      }
     ]
   }
 }
