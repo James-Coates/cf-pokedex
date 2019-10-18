@@ -5,47 +5,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- <link href="https://fonts.googleapis.com/css?family=Roboto:300,500,700" rel="stylesheet"> -->
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"> -->
-    <link
+    <!-- <link
       rel="stylesheet"
       href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
       integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
       crossorigin="anonymous"
-    />
+    /> -->
+    <script src="https://kit.fontawesome.com/49bee75336.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet" />
-    <link type="text/css" rel="stylesheet" href="dist/style.min.css" />
+    <link type="text/css" rel="stylesheet" href="sass/main.css" />
     <title>Pokèdex</title>
   </head>
 
   <body>
-    <div class="container">
-      <header>
-        <h1><span class="highlight">POKE</span>DEX</h1>
-      </header>
-
-      <main>
-        <div class="content-list">
-          <div class="search-bar">
-            <form>
-              <input class="search-bar__input" type="text" placeholder="Search..." />
-              <button class="search-bar__submit">
-                <i class="fas fa-search"></i>
-              </button>
-            </form>
+    <div class="wrapper">
+      <div class="search-section">
+        <div class="header">
+          <div class="logo-box">
+            <h1 class="logo">Pokedex</h1>
           </div>
-
-          <!-- Pokemon List Added Here -->
-          <ul class="scroll-box" id="pokemon-list"></ul>
+          <div class="search-box">
+            <input type="text" placeholder="Search..." type="search" class="search">
+          </div>
         </div>
-
-        <div class="show-box-container">
-          <div class="show-box"></div>
+        <div class="items-container" id="items-container">
         </div>
-      </main>
-      <footer></footer>
+      </div>
+      <div class="details-section">
+        <div class="details-nav">
+          <button class="back">
+              <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="details-container">
+          <div class="image-box">
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png" alt="test" class="image" id="details-image">
+          </div>
+          <div class="details-body">
+              <h2 class="details-name" id="details-name">Bulbasaur</h2>
+              <div class="other-box">
+                <div class="other-detail">
+                  <h3 class="other-detail__label">Types</h3>
+                  <div id="details-types">
+                    <p class="other-detail__value"></p>
+                  </div>
+                </div>
+                <div class="other-detail">
+                  <h3 class="other-detail__label">Height</h3>
+                  <div id="details-types">
+                    <p class="other-detail__value" id="details-height"> </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
     </div>
 
     <script src="js/promise-polyfill.min.js"></script>
     <script src="js/fetch-polyfill.js"></script>
-    <script src="dist/scripts.min.js"></script>
+    <script src="js/scripts.js"></script>
   </body>
 </html>

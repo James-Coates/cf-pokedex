@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- <link href="https://fonts.googleapis.com/css?family=Roboto:300,500,700" rel="stylesheet"> -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"> -->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
+    <link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet" />
+    <link type="text/css" rel="stylesheet" href="dist/style.min.css" />
+    <title>Pokèdex</title>
+  </head>
+
+  <body>
+    <div class="container">
+      <header>
+        <h1><span class="highlight">POKE</span>DEX</h1>
+      </header>
+
+      <main>
+        <div class="content-list">
+          <div class="search-bar">
+            <form>
+              <input class="search-bar__input" type="text" placeholder="Search..." />
+              <button class="search-bar__submit">
+                <i class="fas fa-search"></i>
+              </button>
+            </form>
+          </div>
+
+          <!-- Pokemon List Added Here -->
+          <ul class="scroll-box" id="pokemon-list"></ul>
+        </div>
+
+        <div class="show-box-container">
+          <div class="show-box"></div>
+        </div>
+      </main>
+      <footer></footer>
+    </div>
+
+    <script src="js/promise-polyfill.min.js"></script>
+    <script src="js/fetch-polyfill.js"></script>
+    <script src="dist/scripts.min.js"></script>
+  </body>
+</html>
