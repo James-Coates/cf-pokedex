@@ -18,6 +18,9 @@
   "bugs": {
     "url": "https://github.com/James-Coates/cf-pokedex/issues"
   },
+  "browserslist": [
+    "last 1 Chrome version"
+  ],
   "homepage": "https://github.com/James-Coates/cf-pokedex#readme",
   "devDependencies": {
     "node-sass": "^4.12.0"

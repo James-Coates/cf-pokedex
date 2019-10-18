@@ -11,6 +11,7 @@ body {
   color: color(black);
   height: 100vh;
   position: relative;
+  overflow: hidden;
 }
 
 header {
@@ -56,4 +57,49 @@ main {
 footer {
   height: 4rem;
   background-color: color(black);
+}
+
+.wrapper {
+  height: 100%;
+  width: 200%;
+  background-color: color(medium-gray);
+  display: flex;
+}
+
+.wrapper-toggle {
+  transform: translateX(-50%);
+}
+
+.search-section {
+  height: 100%;
+  width: 50%;
+  background-color: color(dark-gray);
+}
+
+.details-section {
+  display: flex;
+  height: 100%;
+  width: 50%;
+  position: relative;
+}
+
+.details-container {
+  width: 100%;
+  height: 100%;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (min-width: 600px) {
+  .back {
+    display: none;
+  }
+  .wrapper {
+    width: 100%;
+    transform: translateX(0);
+  }
+  .wrapper-toggle {
+    transform: translateX(0);
+}
 }

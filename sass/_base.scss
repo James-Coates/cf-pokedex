@@ -1,10 +1,10 @@
 // SASS Colour Variables
 $colors: (
-  primary: #01152d,
-  primary-light: #102c4e,
-  black: #0f0f0f,
-  white-1: #f5f7fa,
-  white-2: #c3cfe2
+  primary: #DC4133,
+  dark-gray: #2A2F36,
+  medium-gray: #32363C,
+  light-gray: #485059,
+  white: #fff,
 );
 
 // Font
@@ -32,6 +32,8 @@ $font-primary: "Abel", sans-serif;
 
 html {
   font-size: 62.5%;
+  width: 100vw;
+  overflow: hidden;
 }
 
 h1 {

@@ -1,5 +1,6 @@
 (function() {
   const searchInput = document.querySelector('.search-bar__input');
+
   const pokemonRepository = (function() {
     const repository = [];
     const apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
@@ -41,24 +42,24 @@
         });
     }
 
-    function loadDetails(item) {
-      const url = item.detailsUrl;
-      return fetch(url)
-        .then(function(response) {
-          return response.json();
-        })
-        .then(function(details) {
-          item.imageURL = details.sprites.front_default;
-          item.height = details.height;
-          item.types = [];
-          details.types.forEach(function(type) {
-            item.types.push(type.type.name);
-          });
-        })
-        .catch(function(e) {
-          // eslint-disable-next-line no-console
-          console.error(e);
-        });
+    function extractTypes(types) {
+      const extractedTypes = [];
+      types.forEach(type => {
+        extractedTypes.push(type.type);
+      });
+      return extractedTypes;
+    }
+
+    async function loadDetails(url) {
+      const response = await fetch(url);
+      const data = await response.json();
+      const item = { 
+        name: data.name,
+        imageUrl: data.sprites.front_default,
+        types: extractTypes(data.types),
+        height: data.height / 10
+      };
+      return item;
     }
 
     return {
@@ -143,93 +144,189 @@
 
   // #region    *** Item List Functions ***
 
-  function addItemImage() {
-    const itemImageElement = document.createElement('div');
-    itemImageElement.classList.add('content-list__image');
-    return itemImageElement;
-  }
 
-  function addItemText(pokemonName) {
-    const pokemonText = document.createElement('p');
-    pokemonText.classList.add('content-list__desc');
-    pokemonText.textContent = pokemonName;
-    return pokemonText;
-  }
 
-  function showDetails(pokemon) {
-    pokemonRepository
-      .loadDetails(pokemon)
-      .then(clearContentBox)
-      .then(function() {
-        document.querySelector('.show-box-container').classList.add('is-visible');
-        addContent(pokemon);
-      });
-  }
 
-  function addItemButton(pokemon) {
-    const itemButton = document.createElement('button');
-    const itemImage = addItemImage(pokemon);
-    const itemText = addItemText(pokemon.name);
-    itemButton.classList.add('content-list__button');
-    itemButton.appendChild(itemImage);
-    itemButton.appendChild(itemText);
-    itemButton.addEventListener('click', function() {
-      showDetails(pokemon);
-    });
-    return itemButton;
-  }
 
-  function addListItem(pokemon) {
-    const $pokemonList = document.getElementById('pokemon-list');
-    const itemButton = addItemButton(pokemon);
-    const pokemonListItem = document.createElement('li');
-    pokemonListItem.appendChild(itemButton);
-    $pokemonList.appendChild(pokemonListItem);
-  }
 
-  function showLoadingMessage() {
-    const loadingMessage = document.createElement('div');
-    const $pokemonList = document.querySelector('.content-list');
-    loadingMessage.classList.add('lds-dual-ring');
-    $pokemonList.appendChild(loadingMessage);
-  }
 
-  function hideLoadingMessage() {
-    const loadingMessage = document.querySelector('.lds-dual-ring');
-    loadingMessage.parentNode.removeChild(loadingMessage);
-  }
+  // function showLoadingMessage() {
+  //   const loadingMessage = document.createElement('div');
+  //   const $pokemonList = document.querySelector('.content-list');
+  //   loadingMessage.classList.add('lds-dual-ring');
+  //   $pokemonList.appendChild(loadingMessage);
+  // }
 
-  function searchItems() {
-    const filter = searchInput.value.toUpperCase();
-    const ul = document.querySelector('.scroll-box');
-    const li = ul.getElementsByTagName('li');
-    let listItemText;
-    let txtValue;
+  // function hideLoadingMessage() {
+  //   const loadingMessage = document.querySelector('.lds-dual-ring');
+  //   loadingMessage.parentNode.removeChild(loadingMessage);
+  // }
 
-    // Loop through li and hide those that do not match criteria
-    for (let i = 0; i < li.length; i += 1) {
-      listItemText = li[i].getElementsByTagName('p')[0];
-      txtValue = listItemText.textContent.toUpperCase();
-      if (txtValue.indexOf(filter) > -1) {
-        li[i].style.display = '';
-      } else {
-        li[i].style.display = 'none';
-      }
-    }
-  }
+  // function searchItems() {
+  //   const filter = searchInput.value.toUpperCase();
+  //   const ul = document.querySelector('.scroll-box');
+  //   const li = ul.getElementsByTagName('li');
+  //   let listItemText;
+  //   let txtValue;
+
+  //   // Loop through li and hide those that do not match criteria
+  //   for (let i = 0; i < li.length; i += 1) {
+  //     listItemText = li[i].getElementsByTagName('p')[0];
+  //     txtValue = listItemText.textContent.toUpperCase();
+  //     if (txtValue.indexOf(filter) > -1) {
+  //       li[i].style.display = '';
+  //     } else {
+  //       li[i].style.display = 'none';
+  //     }
+  //   }
+  // }
 
   // #endregion *** Item List Functions ***
 
-  pokemonRepository
-    .loadList()
-    .then(showLoadingMessage())
-    .then(function() {
-      hideLoadingMessage();
-      pokemonRepository.getAll().forEach(function(pokemon) {
-        addListItem(pokemon);
-      });
-    });
+  const pageMethods = (pageMethods => {
+    let itemList = [];
+    let itemShow = {};
 
+    // DOM Elements
+    const $itemContainer = document.getElementById('items-container');
+    const $detailsSection = document.querySelector('.details-section');
+    const $detailsImage = document.getElementById('details-image');
+    const $detailsName = document.getElementById('details-name');
+    const $detailsTypes = document.getElementById('details-types');
+    const $detailsHeight = document.getElementById('details-height');
+
+    const addTypes = (types) => {
+      $detailsTypes.innerHTML = '';
+      types.forEach((type) => {
+        const typeElement = document.createElement('p');
+        typeElement.textContent = type.name;
+        typeElement.classList.add(`type-${type.name}`, 'other-detail__desc');
+        $detailsTypes.appendChild(typeElement);
+      }); 
+    }
+
+    const setDetails = (item) => {
+      const { imageUrl, name, types, height } = item;
+      $detailsImage.setAttribute('src', imageUrl);
+      $detailsName.textContent = name;
+      addTypes(types);
+      $detailsHeight.textContent = `${height} m`;
+    }
+
+    const createElement = (element, classList, content, attr) => {
+      const el = document.createElement(element);
+      classList.forEach((c) => {
+        el.classList.add(c);
+      });
+      if (content) {
+        el.textContent = content;
+      }
+      if (attr) {
+        el.setAttribute(attr.name, atr.value)
+      }
+      return el
+    }
+
+    const createImageElement = (src, classList) => {
+      const el = document.createElement('img');
+      classList.forEach((c) => {
+        el.classList.add(c);
+      });
+      el.setAttribute('src', src);
+      return el
+    }
+
+    const createOtherDetailElement = (label, values) => {
+      const otherDetailElement = createElement('div', ['other-detail']);
+      const labelElement = createElement('h3', ['other-detail__label'], label);
+      const valueBoxElement = createElement('div', ['other-detail__label']);
+      values.forEach((value) => {
+        const valueElement = createElement('p', ['other-detail__value'], value);
+        valueBoxElement.appendChild(valueElement);
+      });
+      otherDetailElement.appendChild(labelElement);
+      otherDetailElement.appendChild(valueBoxElement);
+      return otherDetailElement;
+    }
+
+    const createDetailsSection = (item) => {
+      const { imageUrl, name, types, height } = item;
+      const detailSection = createElement('div', ['details-container'])
+      const imageBoxElement = createElement('div', ['image-box']);
+      const imageElement = createImageElement(imageUrl, ['details-image']);
+      imageBoxElement.appendChild(imageElement);
+
+      const detailsBodyElement = createElement('div', ['details-body']);
+      const detailsName = createElement('h2', ['details-name'], name);
+      const otherBox = createElement('div', ['other-box']);
+      const detailsTypes = createOtherDetailElement('types', types.map((type) => type.name));
+      const detailsHeight = createOtherDetailElement('height', [height]);
+
+      otherBox.appendChild(detailsTypes);
+      otherBox.appendChild(detailsHeight);
+
+      detailsBodyElement.appendChild(detailsName);
+      detailsBodyElement.appendChild(otherBox);
+
+      detailSection.appendChild(imageBoxElement);
+      detailSection.appendChild(detailsBodyElement);
+      return detailSection;
+    }
+
+    const loadItem = async (item) => {
+      return await pokemonRepository.loadDetails(item.detailsUrl);
+    }
+
+    const addItemText = (itemName) => {
+      const itemText = document.createElement('p');
+      itemText.classList.add('item-name');
+      itemText.textContent = itemName;
+      return itemText;
+    }
+
+    const addItemButton = (item) => {
+      const itemButton = document.createElement('button');
+      const itemText = addItemText(item.name);
+      itemButton.classList.add('item');
+      itemButton.appendChild(itemText);
+      itemButton.addEventListener('click', async function() {
+        itemShow = await loadItem(item);
+        document.querySelector('.details-container').remove();
+        $detailsSection.appendChild(createDetailsSection(itemShow));
+        toggleScreen();
+      });
+      return itemButton;
+    }
+
+    const createItemList = (items) => {
+      const itemListElement = document.createElement('div');
+      items.forEach(item => {
+        const itemElement = addItemButton(item);
+        itemListElement.appendChild(itemElement)
+      });
+      return itemListElement;
+    }
+    
+    const toggleScreen = () => {
+      document.querySelector('.wrapper').classList.toggle('wrapper-toggle');
+    }
+
+    const start = async () => {
+      await pokemonRepository.loadList();
+      itemList = pokemonRepository.getAll();
+      $itemContainer.appendChild(createItemList(itemList));
+      const $backButton = document.querySelector('.back');
+      $backButton.addEventListener('click', toggleScreen)
+    }
+
+    return {
+      start
+    }
+  })();
+
+  pageMethods.start();
+
+  
   // Add event listener on search bar
-  searchInput.addEventListener('keyup', searchItems);
+  // searchInput.addEventListener('keyup', searchItems);
 })();
