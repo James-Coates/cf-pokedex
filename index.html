@@ -3,14 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- <link href="https://fonts.googleapis.com/css?family=Roboto:300,500,700" rel="stylesheet"> -->
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"> -->
-    <!-- <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
-      crossorigin="anonymous"
-    /> -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/49bee75336.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet" />
     <link type="text/css" rel="stylesheet" href="sass/main.css" />
@@ -39,23 +32,25 @@
         </div>
         <div class="details-container">
           <div class="image-box">
-            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png" alt="test" class="image" id="details-image">
+            <img src="/img/pokeball.svg" alt="test" class="details-image" id="details-image">
           </div>
           <div class="details-body">
-              <h2 class="details-name" id="details-name">Bulbasaur</h2>
+              <h2 class="details-name placeholder" id="details-name"></h2>
               <div class="other-box">
                 <div class="other-detail">
                   <h3 class="other-detail__label">Types</h3>
                   <div id="details-types">
-                    <p class="other-detail__value"></p>
+                    <p class="other-detail__value placeholder"></p>
+                    <p class="other-detail__value placeholder"></p>
                   </div>
                 </div>
                 <div class="other-detail">
                   <h3 class="other-detail__label">Height</h3>
                   <div id="details-types">
-                    <p class="other-detail__value" id="details-height"> </p>
+                    <p class="other-detail__value placeholder" id="details-height"> </p>
                   </div>
                 </div>
+                <h2 class="other-detail__label">Please select a pokemon...</h2>
               </div>
             </div>
         </div>

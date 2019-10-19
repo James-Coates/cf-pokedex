@@ -4,6 +4,8 @@
   "description": "First Javascript App",
   "main": "app.js",
   "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html",
     "compile:sass": "node-sass sass/main.scss css/style.css -w"
   },
   "repository": {
@@ -23,6 +25,11 @@
   ],
   "homepage": "https://github.com/James-Coates/cf-pokedex#readme",
   "devDependencies": {
+    "@babel/cli": "^7.6.4",
+    "@babel/core": "^7.6.4",
+    "@babel/preset-env": "^7.6.3",
+    "babel-preset-env": "^1.7.0",
+    "cssnano": "^4.1.10",
     "node-sass": "^4.12.0"
   }
 }
