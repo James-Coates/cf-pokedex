@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "parcel index.html",
-    "build": "parcel build index.html",
+    "build": "parcel build index.html --public-url ./",
     "compile:sass": "node-sass sass/main.scss css/style.css -w"
   },
   "repository": {
@@ -20,16 +20,17 @@
   "bugs": {
     "url": "https://github.com/James-Coates/cf-pokedex/issues"
   },
-  "browserslist": [
-    "last 1 Chrome version"
-  ],
   "homepage": "https://github.com/James-Coates/cf-pokedex#readme",
   "devDependencies": {
     "@babel/cli": "^7.6.4",
     "@babel/core": "^7.6.4",
+    "@babel/plugin-transform-runtime": "^7.6.2",
     "@babel/preset-env": "^7.6.3",
     "babel-preset-env": "^1.7.0",
     "cssnano": "^4.1.10",
     "node-sass": "^4.12.0"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.6.3"
   }
 }
