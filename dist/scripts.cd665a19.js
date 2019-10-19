@@ -184,100 +184,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
       loadList,
       loadDetails
     };
-  }(); // #region    *** Show Box Functions ***
-
-
-  function clearContentBox() {
-    const showBox = document.querySelector('.show-box');
-    showBox.innerText = '';
-    showBox.parentElement.classList.remove('is-visible');
-  }
-
-  function addCloseButton() {
-    const closeButton = document.createElement('div');
-    const closeButtonContent = document.createElement('i');
-    closeButton.classList.add('show-box__close');
-    closeButtonContent.classList.add('fas');
-    closeButtonContent.classList.add('fa-times');
-    closeButton.appendChild(closeButtonContent);
-    closeButton.addEventListener('click', function () {
-      clearContentBox();
-    });
-    return closeButton;
-  }
-
-  function addContentImage(imageURL) {
-    const contentImageContainer = document.createElement('div');
-    const contentImgElement = document.createElement('img');
-    contentImgElement.setAttribute('src', imageURL);
-    contentImageContainer.classList.add('show-box__image');
-    contentImageContainer.appendChild(contentImgElement);
-    return contentImageContainer;
-  }
-
-  function createPokemonType(pokemonType) {
-    const pokemonTypeElement = document.createElement('p');
-    pokemonTypeElement.innerText = pokemonType;
-    pokemonTypeElement.classList.add('content-list__type');
-    pokemonTypeElement.classList.add(`content-list__type--${pokemonType}`);
-    return pokemonTypeElement;
-  }
-
-  function addContentBody(pokemon) {
-    const contentBodyElement = document.createElement('div');
-    const contentHeadingElement = document.createElement('h3');
-    const contentDesc = document.createElement('p');
-    contentHeadingElement.innerText = pokemon.name;
-    contentBodyElement.classList.add('show-box__text');
-    contentBodyElement.appendChild(contentHeadingElement);
-    pokemon.types.forEach(function (pokemonType) {
-      const pokemonTypeElement = createPokemonType(pokemonType);
-      contentBodyElement.appendChild(pokemonTypeElement);
-    });
-    contentDesc.innerText = `Height: ${pokemon.height}m`;
-    contentBodyElement.appendChild(contentDesc);
-    return contentBodyElement;
-  }
-
-  function addContent(pokemon) {
-    const $showBox = document.querySelector('.show-box');
-    const contentImage = addContentImage(pokemon.imageURL);
-    const contentBody = addContentBody(pokemon);
-    const closeButton = addCloseButton();
-    $showBox.appendChild(closeButton);
-    $showBox.appendChild(contentImage);
-    $showBox.appendChild(contentBody);
-  } // #endregion *** Show Box Functions ***
-  // #region    *** Item List Functions ***
-  // function showLoadingMessage() {
-  //   const loadingMessage = document.createElement('div');
-  //   const $pokemonList = document.querySelector('.content-list');
-  //   loadingMessage.classList.add('lds-dual-ring');
-  //   $pokemonList.appendChild(loadingMessage);
-  // }
-  // function hideLoadingMessage() {
-  //   const loadingMessage = document.querySelector('.lds-dual-ring');
-  //   loadingMessage.parentNode.removeChild(loadingMessage);
-  // }
-  // function searchItems() {
-  //   const filter = searchInput.value.toUpperCase();
-  //   const ul = document.querySelector('.scroll-box');
-  //   const li = ul.getElementsByTagName('li');
-  //   let listItemText;
-  //   let txtValue;
-  //   // Loop through li and hide those that do not match criteria
-  //   for (let i = 0; i < li.length; i += 1) {
-  //     listItemText = li[i].getElementsByTagName('p')[0];
-  //     txtValue = listItemText.textContent.toUpperCase();
-  //     if (txtValue.indexOf(filter) > -1) {
-  //       li[i].style.display = '';
-  //     } else {
-  //       li[i].style.display = 'none';
-  //     }
-  //   }
-  // }
-  // #endregion *** Item List Functions ***
-
+  }();
 
   const pageMethods = (pageMethods => {
     let itemList = [];
@@ -285,33 +192,8 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 
     const $itemContainer = document.getElementById('items-container');
     const $detailsSection = document.querySelector('.details-section');
-    const $detailsImage = document.getElementById('details-image');
-    const $detailsName = document.getElementById('details-name');
-    const $detailsTypes = document.getElementById('details-types');
-    const $detailsHeight = document.getElementById('details-height');
-
-    const addTypes = types => {
-      $detailsTypes.innerHTML = '';
-      types.forEach(type => {
-        const typeElement = document.createElement('p');
-        typeElement.textContent = type.name;
-        typeElement.classList.add(`type-${type.name}`, 'other-detail__desc');
-        $detailsTypes.appendChild(typeElement);
-      });
-    };
-
-    const setDetails = item => {
-      const {
-        imageUrl,
-        name,
-        types,
-        height
-      } = item;
-      $detailsImage.setAttribute('src', imageUrl);
-      $detailsName.textContent = name;
-      addTypes(types);
-      $detailsHeight.textContent = `${height} m`;
-    };
+    const $backButton = document.querySelector('.back');
+    const $search = document.querySelector('.search');
 
     const createElement = (element, classList, content, attr) => {
       const el = document.createElement(element);
@@ -381,17 +263,9 @@ parcelRequire = (function (modules, cache, entry, globalName) {
       return await pokemonRepository.loadDetails(item.detailsUrl);
     };
 
-    const addItemText = itemName => {
-      const itemText = document.createElement('p');
-      itemText.classList.add('item-name');
-      itemText.textContent = itemName;
-      return itemText;
-    };
-
     const addItemButton = item => {
-      const itemButton = document.createElement('button');
-      const itemText = addItemText(item.name);
-      itemButton.classList.add('item');
+      const itemButton = createElement('button', ['item']);
+      const itemText = createElement('p', ['item-name'], item.name);
       itemButton.appendChild(itemText);
       itemButton.addEventListener('click', async function () {
         itemShow = await loadItem(item);
@@ -415,12 +289,22 @@ parcelRequire = (function (modules, cache, entry, globalName) {
       document.querySelector('.wrapper').classList.toggle('wrapper-toggle');
     };
 
+    const generateItemList = itemList => {
+      $itemContainer.innerHTML = '';
+      $itemContainer.appendChild(createItemList(itemList));
+    };
+
+    const filterList = query => {
+      const filteredArray = itemList.filter(item => item.name.includes(query));
+      generateItemList(filteredArray);
+    };
+
     const start = async () => {
       await pokemonRepository.loadList();
       itemList = pokemonRepository.getAll();
-      $itemContainer.appendChild(createItemList(itemList));
-      const $backButton = document.querySelector('.back');
+      generateItemList(itemList);
       $backButton.addEventListener('click', toggleScreen);
+      $search.addEventListener('keyup', e => filterList(e.target.value));
     };
 
     return {
@@ -459,7 +343,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52840" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55606" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
