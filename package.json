@@ -31,6 +31,7 @@
     "node-sass": "^4.12.0"
   },
   "dependencies": {
-    "@babel/runtime": "^7.6.3"
+    "@babel/runtime": "^7.6.3",
+    "eslint-config-prettier": "^6.7.0"
   }
 }
